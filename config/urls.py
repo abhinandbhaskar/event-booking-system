@@ -16,7 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from events import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # admin side urls
+    path('admin_login',views.admin_login,name="home"),
+    path('admin_event_list',views.admin_event_list,name="admin_event_list"),
+    path('add_event',views.add_event,name="add_event"),
+    path('update_event',views.update_event,name="update_event"),
+    path('view_bookings',views.view_bookings,name="view_bookings"),
+    # user side urls
+    path('user_event_list',views.user_event_list,name="user_event_list"),
+    path('user_book_event',views.user_book_event,name="user_book_event"),
+    path('user_booking_success',views.user_booking_success,name="user_booking_success")
+
 ]
