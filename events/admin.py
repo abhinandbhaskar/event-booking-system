@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from events.models import CustomUser,Events,Booking
+
+admin.site.register(CustomUser)
+admin.site.register(Events)
+admin.site.register(Booking)
