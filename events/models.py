@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
-    pass
+    is_admin = models.BooleanField(default=False)
 
 class Events(models.Model):
     title=models.CharField(max_length=200)

@@ -15,11 +15,10 @@
     </div>
         <div class="flex items-center space-x-4">
             <div class="text-sm">
-                <!-- <p class="font-semibold">Welcome, {{ username }}!</p>
-                <p class="italic">Email : {{email}}</p> -->
+                
             </div>
 
-            <a href="" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg inline-block">
+            <a  href="{% url 'admin_logoutpage' %}" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg inline-block">
             Logout
             </a> 
             
@@ -30,23 +29,20 @@
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
                 <div class="bg-white shadow rounded-lg p-4">
                     <h2 class="text-lg font-semibold text-gray-700">Total Number of Events</h2>
-                    <p class="text-2xl font-bold text-blue-500">89</p>
+                    <p class="text-2xl font-bold text-blue-500">{{ total_events }}</p>
                 </div>
                  <div class="bg-white shadow rounded-lg p-4">
                     <h2 class="text-lg font-semibold text-gray-700">Total Tickets Booked</h2>
-                    <p class="text-2xl font-bold text-blue-500">0</p>
+                    <p class="text-2xl font-bold text-blue-500">{{ total_tickets_booked }}</p>
                 </div>
                 <div class="bg-white shadow rounded-lg p-4 flex flex-col md:flex-row  gap-2 items-start md:items-center">
                     <a href="{% url 'add_event' %}" class="bg-green-500 hover:bg-green-700 text-white rounded-lg px-4 py-2">+ Add New Event</a>
                     <a href="{% url 'admin_event_list' %}"  class="bg-blue-500 hover:bg-blue-700 text-white rounded-lg px-4 py-2">View All Event</a>
                 </div>
             </div>
-
-            
-
         </section>
 
-        <main class="p-4 bg-gray-50 min-h-screen">
+<main class="p-4 bg-gray-50 min-h-screen">
   <div class="overflow-x-auto">
           {% block body %}
     <table class="min-w-full divide-y divide-gray-200 border border-gray-300 rounded-lg shadow-sm bg-white">
@@ -57,31 +53,38 @@
           <th class="px-6 py-3 text-left">Date & Time</th>
           <th class="px-6 py-3 text-left">Booked Seats</th>
           <th class="px-6 py-3 text-left">Total Seats</th>
+          <th class="px-6 py-3 text-left">Seats Left</th>
           <th class="px-6 py-3 text-center">Actions</th>
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-200 text-gray-800">
+        {% for event in events %}
         <tr>
-          <td class="px-6 py-4">1</td>
-          <td class="px-6 py-4">Music</td>
-          <td class="px-6 py-4">May 21, 2024</td>
-          <td class="px-6 py-4">7</td>
-          <td class="px-6 py-4">50</td>
+          <td class="px-6 py-4">{{forloop.counter}}</td>
+          <td class="px-6 py-4">{{event.title}}</td>
+          <td class="px-6 py-4">{{ event.date }} {{ event.time }}</td>
+          <td class="px-6 py-4">
+            {{ event.booked_seats }}
+          </td>
+          <td class="px-6 py-4">{{ event.total_seats }}</td>
+          <td class="px-6 py-4">
+            {{event.seats_left }}
+            {% if event.is_sold_out %}
+              <span class="text-red-600 font-bold ml-2">(Sold Out)</span>
+            {% endif %}
+          </td>
           <td class="px-6 py-4 text-center space-x-2">
-            <a href="{% url 'view_bookings' %}" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 text-sm">View Bookings</a>
-            <a href="{% url 'update_event' %}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm">Edit</a>
-            <a class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm">Delete</a>
+            <a href="{% url 'view_bookings' event.id %}" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 text-sm">View Bookings</a>
+            <a href="{% url 'update_event' event.id %}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm">Edit</a>
+            <a href="{% url 'delete_event' event.id %}" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm">Delete</a>
           </td>
         </tr>
+        {% endfor %}
       </tbody>
     </table>
             {% endblock %}
   </div>
 </main>
-
-
-    </div>
-
-    
+    </div>    
 </body>
 </html>

@@ -4,13 +4,17 @@
     <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
         <h1 class="text-2xl font-bold text-gray-800 mb-6">View Booking</h1>
         <section class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-4 text-gray-700 mb-8">
-            <div><span class="font-semibold">Event</span>: <p>Music</p></div>
-            <div><span class="font-semibold">Description</span>: <p>Music band from kerala</p></div>
-            <div><span  class="font-semibold">Venue</span>: <p>InfoPark</p></div>
-            <div><span  class="font-semibold">Date & Time</span>: <p>21,may,2023</p></div>
-           <div> <span  class="font-semibold">Total Seats</span>: <p>100</p></div>
-            <div><span  class="font-semibold">Booked</span>: <p>70</p></div>
-            <div><span  class="font-semibold">Seats Left</span>: <p>30</p></div>
+            <div><span class="font-semibold">Event</span>: <p>{{event.title}}</p></div>
+            <div><span class="font-semibold">Description</span>: <p>{{event.description}}</p></div>
+            <div><span  class="font-semibold">Venue</span>: <p>{{event.venue}}</p></div>
+            <div><span  class="font-semibold">Date & Time</span>: <p>{{ event.date }} {{ event.time }}</p></div>
+           <div> <span  class="font-semibold">Total Seats</span>: <p>{{ event.total_seats }}</p></div>
+            <div><span  class="font-semibold">Booked</span>: <p>{{ event.booked_seats }}</p></div>
+            <div><span  class="font-semibold">Seats Left</span>: <p>{{event.seats_left }}
+            {% if event.is_sold_out %}
+              <span class="text-red-600 font-bold ml-2">(Sold Out)</span>
+            {% endif %}
+            </p></div>
         </section>
         <main>
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Booking Table</h2>
@@ -18,17 +22,22 @@
                 <table class="min-w-full divide-y divide-gray-200 border border-gray-300 bg-white rounded-md shadow-sm">
                 <thead  class="bg-gray-100 text-gray-700 text-sm uppercase">
                     <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Seats Booked</th>
+                        <th class="px-4 py-2 text-left">Slno</th>
+                        <th class="px-4 py-2 text-left">Name</th>
+                        <th class="px-4 py-2 text-left">Email</th>
+                        <th class="px-4 py-2 text-left">Seats Booked</th>
+                        <th class="px-4 py-2 text-left">Booked At</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Abhi</td>
-                        <td>abhi@gmail.com</td>
-                        <td>10</td>
+                    {% for i in bookings %}
+                    <tr><td class="px-4 py-2">{{forloop.counter}}</td>
+                        <td class="px-4 py-2">{{i.name}}</td>
+                        <td class="px-4 py-2">{{i.email}}</td>
+                        <td class="px-4 py-2">{{i.seats_booked}}</td>
+                        <td class="px-4 py-2">{{ i.booked_at }}</td>
                     </tr>
+                    {% endfor %}
                 </tbody>
 
             </table>

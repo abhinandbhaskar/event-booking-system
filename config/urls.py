@@ -21,14 +21,17 @@ from events import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     # admin side urls
-    path('admin_login',views.admin_login,name="home"),
+    path('admin_login_view', views.admin_login_view, name='admin_login_view'),
+    path('admin_logoutpage',views.admin_logout_view,name="admin_logoutpage"),
     path('admin_event_list',views.admin_event_list,name="admin_event_list"),
     path('add_event',views.add_event,name="add_event"),
-    path('update_event',views.update_event,name="update_event"),
-    path('view_bookings',views.view_bookings,name="view_bookings"),
+    path('add_event_post',views.add_event_post,name="add_event_post"),
+    path('delete_event/<int:id>/',views.delete_event,name="delete_event"),
+    path('update_event/<int:id>/',views.update_event,name="update_event"),
+    path('update_event_post/<int:id>/',views.update_event_post,name="update_event_post"),
+    path('view_bookings/<int:id>/',views.view_bookings,name="view_bookings"),
     # user side urls
-    path('user_event_list',views.user_event_list,name="user_event_list"),
-    path('user_book_event',views.user_book_event,name="user_book_event"),
-    path('user_booking_success',views.user_booking_success,name="user_booking_success")
-
+    path('',views.user_event_list,name="user_event_list"),
+    path('user_book_event/<int:id>/',views.user_book_event,name="user_book_event"),
+    path('book_event_post/<int:id>/',views.book_event_post,name="book_event_post"),
 ]
