@@ -79,6 +79,27 @@ python manage.py migrate
 5. **Create Admin User:**
 python manage.py createsuperuser
 
+Username (Required)
+Email (Required)
+Password (Required)
+
+**After Superuser Login — Creating New Admin Users:**
+Login to the Django Admin Panel using the superuser credentials.
+
+Go to Users → Add User.
+
+While adding a new user, make sure to:
+
+Provide Username (Required)
+
+Provide Email (Required)
+
+Set Password (Required)
+
+Check Is Admin (If applicable in your model)
+
+Click Save.
+
 
 6.**Run the Development Server:**
 python manage.py runserver
