@@ -22,8 +22,8 @@ def admin_login_view(request):
             login(request,user)
             return redirect('admin_event_list')
         else:
-            return render(request,'admin/login.html', {'error': 'Invalid username or password'})
-    return render(request,'admin/login.html')
+            return render(request,'admin/loginpage.html', {'error': 'Invalid username or password'})
+    return render(request,'admin/loginpage.html')
 
 def admin_logout_view(request):
     logout(request)
